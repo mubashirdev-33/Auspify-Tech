@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopEase | Online Store</title>
+
+  <link rel="stylesheet" href="./Css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="#" class="logo">shop<span>ease.</span></a>
+
+    <div class="nav-search">
+      <input type="search" id="searchInput" placeholder="Search products...">
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <button class="cart-button" id="cartBtn">
+      <span>Cart</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">NEW COLLECTION 2026</span>
+
+        <h1>
+          Find your next<br>
+          <span>favorite thing.</span>
+        </h1>
+
+        <p>
+          Discover everyday essentials and modern picks,
+          all in one place.
+        </p>
+
+        <a href="#products" class="hero-btn">
+          Explore Collection <span>→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="shop-section" id="products">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">OUR COLLECTION</span>
+          <h2>Popular Products</h2>
+        </div>
+
+        <p id="productCount">Loading products...</p>
+      </div>
+
+      <div class="shop-tools">
+        <div class="categories" id="categoryList">
+          <button class="category active" data-category="All">All</button>
+        </div>
+
+        <select id="sortSelect">
+          <option value="default">Sort By: Featured</option>
+          <option value="low">Price: Low to High</option>
+          <option value="high">Price: High to Low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+
+      <p class="empty-message" id="emptyMessage" hidden>
+        No products found. Try another search.
+      </p>
+    </section>
+
+  </main>
+
+  <!-- Cart Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-panel" id="cartPanel">
+    <div class="cart-header">
+      <div>
+        <span class="eyebrow">YOUR SELECTION</span>
+        <h2>Shopping Cart</h2>
+      </div>
+
+      <button class="close-cart" id="closeCart" aria-label="Close cart">×</button>
+    </div>
+
+    <div class="cart-items" id="cartItems"></div>
+
+    <div class="cart-footer">
+      <div class="total-row">
+        <span>Subtotal</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+
+      <button class="checkout-btn" id="checkoutBtn">
+        Continue to Checkout →
+      </button>
+
+      <p>Shipping and taxes calculated at checkout.</p>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer>
+    <a href="#" class="logo">shop<span>ease.</span></a>
+    <p>© 2026 ShopEase. Designed for everyday living.</p>
+  </footer>
+
+  <script src="./Js/app.js"></script>
+</body>
+</html>

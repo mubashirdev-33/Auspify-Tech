@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+
+    <!-- Weather Dashboard -->
+    <main class="container">
+        <div class="weather-box">
+            <div class="header">
+                <span class="tag">WEATHER APP</span>
+                <h1>Weather Dashboard</h1>
+                <p>Find current weather of any city</p>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="cityInput" placeholder="Enter city name">
+                <button id="searchBtn">Search</button>
+            </div>
+
+            <p id="message"></p>
+
+            <div id="weatherResult" class="weather-result">
+                <div id="weatherIcon" class="weather-icon">🌤️</div>
+                <h2 id="cityName">Search Your City</h2>
+                <p id="weatherCondition">Current Weather</p>
+                <h1 id="temperature">--°C</h1>
+
+                <div class="weather-details">
+                    <div class="detail">
+                        <span>Feels Like</span>
+                        <h3 id="feelsLike">--°C</h3>
+                    </div>
+
+                    <div class="detail">
+                        <span>Humidity</span>
+                        <h3 id="humidity">--%</h3>
+                    </div>
+
+                    <div class="detail">
+                        <span>Wind Speed</span>
+                        <h3 id="windSpeed">-- km/h</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="./JS/app.js"></script>
+</body>
+</html>
