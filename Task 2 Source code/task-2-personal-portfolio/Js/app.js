@@ -1,29 +1,24 @@
-// ============================================================
-//  Main Portfolio JavaScript
-//  Author: Mubashir Khan
-//  Features: Typed text, Mobile menu, Active nav, Download CV
-// ============================================================
 
-// -------- 1. TYPED TEXT ANIMATION --------
-// Hero mein text type/erase karke change hota rahe
+
+// for  text type/erase 
 const typedTextElement = document.getElementById("typedText");
 
-// Yeh saare words hain jo typing mein aayenge
 const wordsToType = [
-    
-    "React applications",
-    "clean user interfaces",
-      "Dynamic React Apps", 
-    "Interactive User Interfaces", 
-    "Mobile-First Designs"
+ 
+    "Responsive Web Designs",
+    "Dynamic React Applications",
+    "Secure Firebase Auth Systems",
+    "Custom E-Commerce Frontends",
+    "Optimized Single Page Apps",
+    "Clean & Scalable Codebases"
 ];
 
-let wordIndex = 0;        // Kaun sa word chal raha hai
-let charIndex = 0;        // Kitne characters type ho chuke
-let isDeleting = false;   // Delete mode mein hai ya nahi
-const typeSpeed = 90;     // Typing ki speed (ms)
-const deleteSpeed = 45;   // Deleting ki speed (ms)
-const pauseBetween = 1500;// Word ke baad pause (ms)
+let wordIndex = 0;        
+let charIndex = 0;        
+let isDeleting = false;   
+const typeSpeed = 90;     
+const deleteSpeed = 45;   
+const pauseBetween = 1500;
 
 function typeLoop() {
     if (!typedTextElement) return;
@@ -31,24 +26,24 @@ function typeLoop() {
     const currentWord = wordsToType[wordIndex];
 
     if (isDeleting) {
-        // Delete mode - ek ek character hata rahe hain
+        // Delete mode -one by one character 
         typedTextElement.textContent = currentWord.substring(0, charIndex - 1);
         charIndex--;
     } else {
-        // Typing mode - ek ek character add kar rahe hain
+        // Typing mode - one by one character add 
         typedTextElement.textContent = currentWord.substring(0, charIndex + 1);
         charIndex++;
     }
 
-    // Speed decide karein
+    // Speed decide 
     let delay = isDeleting ? deleteSpeed : typeSpeed;
 
-    // Agar pura word type ho gaya
+    // complete word type 
     if (!isDeleting && charIndex === currentWord.length) {
         delay = pauseBetween;
         isDeleting = true;
     }
-    // Agar pura word delete ho gaya
+    // complete word  delete 
     else if (isDeleting && charIndex === 0) {
         isDeleting = false;
         wordIndex = (wordIndex + 1) % wordsToType.length;
@@ -58,46 +53,84 @@ function typeLoop() {
     setTimeout(typeLoop, delay);
 }
 
-// Animation start karein
+// Animation start 
 typeLoop();
 
 
-// -------- 2. MOBILE NAVBAR TOGGLE --------
-// Chhoti screens par navbar open/close karne ke liye
+//   MOBILE NAVBAR TOGGLE 
+
 const navbar = document.querySelector(".navbar");
 const navLinks = document.querySelector(".nav-links");
 
-// Mobile menu button banayein (dynamically)
+
 if (navbar && navLinks && !document.querySelector(".menu-toggle")) {
     const menuBtn = document.createElement("button");
     menuBtn.className = "menu-toggle";
-    menuBtn.setAttribute("aria-label", "Toggle menu");
+    menuBtn.setAttribute("type", "button");
+    menuBtn.setAttribute("aria-label", "Open navigation menu");
+    menuBtn.setAttribute("aria-expanded", "false");
     menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    navbar.querySelector(".navbar-content").appendChild(menuBtn);
 
-    // Toggle par click
-    menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("open");
+    const navbarContent = navbar.querySelector(".navbar-content");
+    if (navbarContent) {
+        navbarContent.appendChild(menuBtn);
+    }
+
+    const setMenuState = (isOpen) => {
+        navLinks.classList.toggle("open", isOpen);
+
         const icon = menuBtn.querySelector("i");
-        if (navLinks.classList.contains("open")) {
-            icon.className = "fa-solid fa-xmark";
-        } else {
-            icon.className = "fa-solid fa-bars";
+        if (icon) {
+            icon.className = isOpen
+                ? "fa-solid fa-xmark"
+                : "fa-solid fa-bars";
+        }
+
+        menuBtn.setAttribute("aria-expanded", String(isOpen));
+        menuBtn.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+    };
+
+
+    menuBtn.addEventListener("click", () => {
+        setMenuState(!navLinks.classList.contains("open"));
+    });
+
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            setMenuState(false);
+        });
+    });
+
+
+    document.addEventListener("click", (event) => {
+        if (!navLinks.classList.contains("open")) return;
+
+        if (!navbar.contains(event.target)) {
+            setMenuState(false);
         }
     });
 
-    // Nav link par click hone par menu band
-    navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("open");
-            menuBtn.querySelector("i").className = "fa-solid fa-bars";
-        });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            setMenuState(false);
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 900) {
+            setMenuState(false);
+        }
     });
 }
 
 
-// -------- 3. ACTIVE NAV LINK ON SCROLL --------
-// Scroll karte waqt kaunsa section view mein hai woh highlight ho
+//  ACTIVE NAV LINK ON SCROLL 
+
 const allSections = document.querySelectorAll("section[id]");
 const allNavLinks = document.querySelectorAll(".nav-links a");
 
@@ -123,8 +156,8 @@ window.addEventListener("scroll", highlightActiveNav);
 window.addEventListener("load", highlightActiveNav);
 
 
-// -------- 4. NAVBAR SCROLL EFFECT --------
-// Scroll karne par navbar thoda compact ho jaye
+//  NAVBAR SCROLL EFFECT -
+
 window.addEventListener("scroll", () => {
     if (!navbar) return;
     if (window.scrollY > 50) {
@@ -135,8 +168,7 @@ window.addEventListener("scroll", () => {
 });
 
 
-// -------- 5. DOWNLOAD CV — VERIFY FILE --------
-// CV button par click karne se pehle file check karein
+//  DOWNLOAD CV — VERIFY FILE 
 const cvButtons = document.querySelectorAll(".cv-btn");
 cvButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
@@ -146,10 +178,9 @@ cvButtons.forEach((btn) => {
 });
 
 
-// -------- 6. SIMPLE TOAST NOTIFICATION --------
-// Chhota popup message dikhane ke liye
+//  SIMPLE TOAST NOTIFICATION 
+
 function showToast(message, type = "info") {
-    // Purana toast hata dein agar mojood hai
     const old = document.querySelector(".toast-notify");
     if (old) old.remove();
 
@@ -166,10 +197,10 @@ function showToast(message, type = "info") {
     toast.innerHTML = `<i class="fa-solid ${iconClass}"></i> <span>${message}</span>`;
     document.body.appendChild(toast);
 
-    // Animation ke liye show class
+    
     setTimeout(() => toast.classList.add("show"), 10);
 
-    // 3 second baad hata dein
+    
     setTimeout(() => {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 400);
@@ -177,8 +208,8 @@ function showToast(message, type = "info") {
 }
 
 
-// -------- 7. SMOOTH SCROLL FOR NAV LINKS --------
-// Purane browsers ke liye smooth scroll fallback
+// SMOOTH SCROLL FOR NAV LINKS
+
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
         const targetId = this.getAttribute("href");
@@ -195,8 +226,8 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 
-// -------- 8. SCROLL REVEAL ANIMATION --------
-// Sections aur cards fade in ho jayein jab scroll karein
+// SCROLL REVEAL ANIMATION 
+
 const revealElements = document.querySelectorAll(
     ".skill-card, .achievement-card, .info-card, .project-card"
 );
@@ -216,8 +247,8 @@ const revealObserver = new IntersectionObserver(
 revealElements.forEach((el) => revealObserver.observe(el));
 
 
-// -------- 9. PROJECT TRACK — PAUSE ON HOVER (Fallback) --------
-// CSS ke saath saath JS fallback bhi, mobile ke liye
+// PROJECT TRACK — PAUSE ON HOVER (Fallback) 
+
 const projectRows = document.querySelectorAll(".project-row");
 projectRows.forEach((row) => {
     const track = row.querySelector(".project-track");
@@ -230,7 +261,7 @@ projectRows.forEach((row) => {
         track.style.animationPlayState = "running";
     });
 
-    // Touch devices ke liye
+    
     row.addEventListener("touchstart", () => {
         track.style.animationPlayState = "paused";
     });
@@ -242,8 +273,8 @@ projectRows.forEach((row) => {
 });
 
 
-// -------- 10. YEAR AUTO-UPDATE IN FOOTER --------
-// Footer mein current year dikhaye
+//YEAR AUTO-UPDATE IN FOOTER
+
 const footerText = document.querySelector(".footer p");
 if (footerText) {
     const currentYear = new Date().getFullYear();
